@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { Save, Plus, Trash2, ChevronDown, ChevronUp } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { Save, Plus, Trash2, LogOut } from "lucide-react";
 
 type Tab = "profile" | "projects" | "experience" | "skills" | "certificates";
 
@@ -9,6 +10,12 @@ export default function AdminPage() {
   const [activeTab, setActiveTab] = useState<Tab>("profile");
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState("");
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    await fetch("/api/admin/logout", { method: "POST" });
+    router.push("/admin/login");
+  };
 
   // Profile state
   const [profile, setProfile] = useState({
@@ -235,9 +242,18 @@ export default function AdminPage() {
               {message}
             </div>
           )}
-          <a href="/" className="text-sm text-zinc-400 hover:text-white transition-colors">
-            View Site &rarr;
-          </a>
+          <div className="flex items-center gap-4">
+            <a href="/" className="text-sm text-zinc-400 hover:text-white transition-colors">
+              View Site &rarr;
+            </a>
+            <button
+              onClick={handleLogout}
+              className="inline-flex items-center gap-2 text-sm text-zinc-400 hover:text-red-400 transition-colors"
+            >
+              <LogOut className="w-4 h-4" />
+              Logout
+            </button>
+          </div>
         </div>
       </div>
 

@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 46, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/Pongo/Documents/Project/portofolio/src/app/api/admin/login/route.ts"],"sourcesContent":["import { NextRequest, NextResponse } from \"next/server\";\n\nexport async function POST(req: NextRequest) {\n  const { username, password } = await req.json();\n\n  if (\n    username === process.env.ADMIN_USERNAME &&\n    password === process.env.ADMIN_PASSWORD\n  ) {\n    const response = NextResponse.json({ success: true });\n    response.cookies.set(\"admin_session\", \"authenticated\", {\n      httpOnly: true,\n      secure: process.env.NODE_ENV === \"production\",\n      sameSite: \"strict\",\n      maxAge: 60 * 60 * 24, // 1 day\n      path: \"/\",\n    });\n    return response;\n  }\n\n  return NextResponse.json({ error: \"Invalid credentials\" }, { status: 401 });\n}\n"],"names":[],"mappings":";;;;AAAA;;AAEO,eAAe,KAAK,GAAgB;IACzC,MAAM,EAAE,QAAQ,EAAE,QAAQ,EAAE,GAAG,MAAM,IAAI,IAAI;IAE7C,IACE,aAAa,QAAQ,GAAG,CAAC,cAAc,IACvC,aAAa,QAAQ,GAAG,CAAC,cAAc,EACvC;QACA,MAAM,WAAW,gJAAY,CAAC,IAAI,CAAC;YAAE,SAAS;QAAK;QACnD,SAAS,OAAO,CAAC,GAAG,CAAC,iBAAiB,iBAAiB;YACrD,UAAU;YACV,QAAQ,oDAAyB;YACjC,UAAU;YACV,QAAQ,KAAK,KAAK;YAClB,MAAM;QACR;QACA,OAAO;IACT;IAEA,OAAO,gJAAY,CAAC,IAAI,CAAC;QAAE,OAAO;IAAsB,GAAG;QAAE,QAAQ;IAAI;AAC3E"}}]
+}
