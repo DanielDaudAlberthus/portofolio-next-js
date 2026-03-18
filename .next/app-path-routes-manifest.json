@@ -1,0 +1,12 @@
+{
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/admin/page": "/admin",
+  "/api/certificates/route": "/api/certificates",
+  "/api/experience/route": "/api/experience",
+  "/api/profile/route": "/api/profile",
+  "/api/projects/route": "/api/projects",
+  "/api/skills/route": "/api/skills",
+  "/favicon.ico/route": "/favicon.ico",
+  "/page": "/"
+}
