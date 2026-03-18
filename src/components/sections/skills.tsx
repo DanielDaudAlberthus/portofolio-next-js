@@ -1,11 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { skills } from "@/data/skills";
 import { Card, CardContent } from "@/components/ui/card";
 import { Code2, Monitor, Database, Cloud, Layout, CheckCircle } from "lucide-react";
 
-// Helper icon mapping based on category names
 const iconMap: Record<string, React.ElementType> = {
   "Frontend": Monitor,
   "Backend": Database,
@@ -13,7 +11,15 @@ const iconMap: Record<string, React.ElementType> = {
   "Design": Layout,
 };
 
-export default function Skills() {
+interface SkillData {
+  id: number;
+  category: string;
+  items: string[];
+}
+
+export default function Skills({ skills }: { skills: SkillData[] }) {
+  if (skills.length === 0) return null;
+
   const container = {
     hidden: { opacity: 0 },
     show: {
@@ -51,10 +57,10 @@ export default function Skills() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {skills.map((skillGroup, groupIdx) => {
             const Icon = iconMap[skillGroup.category] || Code2;
-            
+
             return (
               <motion.div
-                key={skillGroup.category}
+                key={skillGroup.id}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
@@ -68,8 +74,8 @@ export default function Skills() {
                       </div>
                       <h3 className="text-xl font-bold">{skillGroup.category}</h3>
                     </div>
-                    
-                    <motion.div 
+
+                    <motion.div
                       variants={container}
                       initial="hidden"
                       whileInView="show"
@@ -77,8 +83,8 @@ export default function Skills() {
                       className="grid grid-cols-2 gap-4"
                     >
                       {skillGroup.items.map((skill) => (
-                        <motion.div 
-                          key={skill} 
+                        <motion.div
+                          key={skill}
                           variants={item}
                           className="flex items-center space-x-2 group"
                         >

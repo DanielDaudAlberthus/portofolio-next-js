@@ -1,12 +1,22 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { projects } from "@/data/projects";
 import { Github, ExternalLink } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 
-export default function Projects() {
+interface ProjectData {
+  id: number;
+  title: string;
+  description: string;
+  image: string | null;
+  tech: string[];
+  githubUrl: string | null;
+  liveUrl: string | null;
+}
+
+export default function Projects({ projects }: { projects: ProjectData[] }) {
+  if (projects.length === 0) return null;
+
   return (
     <section id="projects" className="py-24 bg-background border-y border-white/5 relative">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -42,7 +52,7 @@ export default function Projects() {
               <div className="relative h-48 sm:h-64 overflow-hidden">
                 <div className="absolute inset-0 bg-primary/20 mix-blend-multiply group-hover:opacity-0 transition-opacity z-10" />
                 <img
-                  src={project.image}
+                  src={project.image || "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&q=80"}
                   alt={project.title}
                   className="w-full h-full object-cover object-center grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
                 />
@@ -68,14 +78,18 @@ export default function Projects() {
 
                 {/* Links */}
                 <div className="flex items-center gap-4 mt-auto">
-                  <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center rounded-lg border border-white/20 hover:bg-white/10 text-sm font-medium h-9 px-3 transition-colors">
-                    <Github className="w-4 h-4 mr-2" />
-                    Code
-                  </a>
-                  <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center rounded-lg bg-primary/20 text-primary hover:bg-primary/30 text-sm font-medium h-9 px-3 transition-colors">
-                    <ExternalLink className="w-4 h-4 mr-2" />
-                    Live Demo
-                  </a>
+                  {project.githubUrl && (
+                    <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center rounded-lg border border-white/20 hover:bg-white/10 text-sm font-medium h-9 px-3 transition-colors">
+                      <Github className="w-4 h-4 mr-2" />
+                      Code
+                    </a>
+                  )}
+                  {project.liveUrl && (
+                    <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center rounded-lg bg-primary/20 text-primary hover:bg-primary/30 text-sm font-medium h-9 px-3 transition-colors">
+                      <ExternalLink className="w-4 h-4 mr-2" />
+                      Live Demo
+                    </a>
+                  )}
                 </div>
               </div>
             </motion.div>

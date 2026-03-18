@@ -2,8 +2,6 @@
 
 import { motion } from "framer-motion";
 import { User2, Code2, Globe2, Briefcase } from "lucide-react";
-import Image from "next/image";
-import { profile } from "@/data/profile";
 import { Card, CardContent } from "@/components/ui/card";
 
 const stats = [
@@ -13,7 +11,13 @@ const stats = [
   { icon: User2, label: "Lines of Code", value: "1M+" },
 ];
 
-export default function About() {
+interface ProfileData {
+  name: string;
+  role: string;
+  location: string;
+}
+
+export default function About({ profile }: { profile: ProfileData }) {
   return (
     <section
       id="about"
@@ -67,7 +71,7 @@ export default function About() {
                 <Code2 className="w-5 h-5 text-primary" />
               </div>
               <div>
-                <div className="font-bold font-mono">Back End Developer</div>
+                <div className="font-bold font-mono">{profile.role}</div>
                 <div className="text-xs text-muted-foreground">Enthusiast</div>
               </div>
             </motion.div>

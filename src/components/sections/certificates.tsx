@@ -1,17 +1,24 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { certificates } from "@/data/certificates";
 import { Award, ExternalLink } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 
-export default function Certificates() {
+interface CertificateData {
+  id: number;
+  name: string;
+  issuer: string;
+  date: string;
+  url: string | null;
+}
+
+export default function Certificates({ certificates }: { certificates: CertificateData[] }) {
+  if (certificates.length === 0) return null;
+
   return (
     <section id="certificates" className="py-24 bg-background relative overflow-hidden">
-      {/* Decorative Background Elements */}
       <div className="absolute top-1/2 left-0 w-64 h-64 bg-primary/5 rounded-full blur-[80px] -translate-y-1/2 -translate-x-1/2 pointer-events-none" />
-      
+
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -58,10 +65,12 @@ export default function Certificates() {
                     Issued by <span className="text-foreground font-medium">{cert.issuer}</span>
                   </p>
 
-                  <a href={cert.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center w-full justify-between hover:bg-white/5 hover:text-primary border border-white/5 group-hover:border-primary/20 transition-all mt-auto rounded-lg h-10 px-4 text-sm font-medium">
-                    <span>View Credential</span>
-                    <ExternalLink className="w-4 h-4 ml-2" />
-                  </a>
+                  {cert.url && (
+                    <a href={cert.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center w-full justify-between hover:bg-white/5 hover:text-primary border border-white/5 group-hover:border-primary/20 transition-all mt-auto rounded-lg h-10 px-4 text-sm font-medium">
+                      <span>View Credential</span>
+                      <ExternalLink className="w-4 h-4 ml-2" />
+                    </a>
+                  )}
                 </CardContent>
               </Card>
             </motion.div>
