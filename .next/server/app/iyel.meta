@@ -1,0 +1,15 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/iyel/layout,_N_T_/iyel/page,_N_T_/iyel"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/iyel/__PAGE__",
+    "/iyel",
+    "/_index",
+    "/_head"
+  ]
+}

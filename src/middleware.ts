@@ -3,17 +3,22 @@ import { NextRequest, NextResponse } from "next/server";
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Protect /admin but not /admin/login
-  if (pathname.startsWith("/admin") && pathname !== "/admin/login") {
+  // Protect /iyel but not /iyel/login
+  if (pathname.startsWith("/iyel") && pathname !== "/iyel/login") {
     const session = request.cookies.get("admin_session");
 
     if (!session || session.value !== "authenticated") {
-      const loginUrl = new URL("/admin/login", request.url);
+      const loginUrl = new URL("/iyel/login", request.url);
       return NextResponse.redirect(loginUrl);
     }
   }
 
-  // Protect API routes (except login/logout)
+  // Block /admin entirely — return 404
+  if (pathname.startsWith("/admin")) {
+    return NextResponse.rewrite(new URL("/_not-found", request.url));
+  }
+
+  // Protect API write routes (except login/logout)
   if (
     pathname.startsWith("/api/") &&
     !pathname.startsWith("/api/admin/") &&
@@ -30,5 +35,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*", "/api/:path*"],
+  matcher: ["/iyel/:path*", "/admin/:path*", "/api/:path*"],
 };

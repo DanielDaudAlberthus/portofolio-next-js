@@ -11,6 +11,10 @@
       "page": "/",
       "matchers": [
         {
+          "regexp": "/:nextData(_next/data/[^/]{1,})?/iyel/:path*{(\\\\.json)}?",
+          "originalSource": "/iyel/:path*"
+        },
+        {
           "regexp": "/:nextData(_next/data/[^/]{1,})?/admin/:path*{(\\\\.json)}?",
           "originalSource": "/admin/:path*"
         },

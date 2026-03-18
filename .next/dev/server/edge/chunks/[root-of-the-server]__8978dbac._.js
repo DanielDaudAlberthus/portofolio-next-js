@@ -25,15 +25,19 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 ;
 function middleware(request) {
     const { pathname } = request.nextUrl;
-    // Protect /admin but not /admin/login
-    if (pathname.startsWith("/admin") && pathname !== "/admin/login") {
+    // Protect /iyel but not /iyel/login
+    if (pathname.startsWith("/iyel") && pathname !== "/iyel/login") {
         const session = request.cookies.get("admin_session");
         if (!session || session.value !== "authenticated") {
-            const loginUrl = new URL("/admin/login", request.url);
+            const loginUrl = new URL("/iyel/login", request.url);
             return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$esm$2f$server$2f$web$2f$exports$2f$index$2e$js__$5b$middleware$2d$edge$5d$__$28$ecmascript$29$__["NextResponse"].redirect(loginUrl);
         }
     }
-    // Protect API routes (except login/logout)
+    // Block /admin entirely — return 404
+    if (pathname.startsWith("/admin")) {
+        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$esm$2f$server$2f$web$2f$exports$2f$index$2e$js__$5b$middleware$2d$edge$5d$__$28$ecmascript$29$__["NextResponse"].rewrite(new URL("/_not-found", request.url));
+    }
+    // Protect API write routes (except login/logout)
     if (pathname.startsWith("/api/") && !pathname.startsWith("/api/admin/") && request.method !== "GET") {
         const session = request.cookies.get("admin_session");
         if (!session || session.value !== "authenticated") {
@@ -48,6 +52,7 @@ function middleware(request) {
 }
 const config = {
     matcher: [
+        "/iyel/:path*",
         "/admin/:path*",
         "/api/:path*"
     ]
