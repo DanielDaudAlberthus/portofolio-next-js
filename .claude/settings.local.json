@@ -5,7 +5,10 @@
       "Bash(npx prisma:*)",
       "Bash(npm run:*)",
       "Bash(npm search:*)",
-      "Bash(PRISMA_USER_CONSENT_FOR_DANGEROUS_AI_ACTION=\"yes\" npx prisma migrate reset --force)"
+      "Bash(PRISMA_USER_CONSENT_FOR_DANGEROUS_AI_ACTION=\"yes\" npx prisma migrate reset --force)",
+      "Bash(sc query:*)",
+      "Bash(git status:*)",
+      "Bash(git add:*)"
     ]
   }
 }
